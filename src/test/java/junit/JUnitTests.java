@@ -1,13 +1,11 @@
 package junit;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,8 +16,6 @@ public class JUnitTests {
 
     @Before
     public void before() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
         driver = new ChromeDriver();
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
@@ -35,7 +31,6 @@ public class JUnitTests {
         verifyZipCode();
     }
 
-
     private void openUspsPage() {
         driver.get("https://www.usps.com");
     }
@@ -46,7 +41,6 @@ public class JUnitTests {
     private void navigateToLookUpZip() {
         new Actions(driver).moveToElement(driver.findElement(By.xpath("//*[@class='qt-nav menuheader']"))).perform();
         driver.findElement(By.xpath("//*[@alt='Zip Code™ Lookup Icon']")).click();
-
     }
 
     /**
@@ -82,7 +76,6 @@ public class JUnitTests {
         System.out.println(result);
         assertThat(result).contains("95014-0642");
     }
-
 
     @After
     public void after() {
